@@ -128,7 +128,7 @@ $admin_locale = setlocale(LC_TIME, 0);
             <?php
             echo zen_draw_form('orders', FILENAME_ORDERS, '', 'get', 'class="navbar-form navbar-left hidden-xs"', true);
             echo '<div class="form-group header-search">';
-            echo zen_draw_input_field('oID', '', 'id="oID" class="form-control" placeholder="'.HEADER_TEXT_SEARCH_ORDERS.'"', '', '');
+            echo zen_draw_input_field('oID', '', 'id="oID" class="form-control" placeholder="' . HEADER_TEXT_SEARCH_ORDERS . '"', type: 'search');
             echo zen_draw_hidden_field('action', 'edit');
             echo '</div>';
             echo '</form>';
