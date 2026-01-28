@@ -9,7 +9,7 @@ if (!defined('IS_ADMIN_FLAG')) die('Illegal Access');
 $menuTitles = zen_get_menu_titles();
 $adminMenu  = zen_get_admin_menu_for_user();
 ?>
-<nav class="navbar navbar-default main-tier" role="navigation">
+<nav class="navbar navbar-default main-tier">
     <div class="container-fluid">
 
         <div class="navbar-header">

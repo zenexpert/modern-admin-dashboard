@@ -40,7 +40,7 @@ $top_products = $db->Execute($sql);
                     // fallback placeholder if no image found
                     $thumb = '<div class="most-popular-fallback-image"><i class="fa fa-image"></i></div>';
                 } else {
-                    $thumb = '<img class="most-popular-main-image" src="' . $img_path . '">';
+                    $thumb = '<img class="most-popular-main-image" src="' . $img_path . '" alt=" ' . $name . ' ">';
                 }
                 ?>
                 <li class="list-group-item most-popular-item">
@@ -51,11 +51,11 @@ $top_products = $db->Execute($sql);
                             </a>
                         </div>
                         <div class="media-body media-middle">
-                            <h5 class="media-heading">
+                            <h4 class="media-heading">
                                 <a href="<?php echo zen_href_link(FILENAME_PRODUCT, 'action=new_product&pID=' . $pID); ?>">
                                     <?php echo zen_trunc_string($name, 35, true); ?>
                                 </a>
-                            </h5>
+                            </h4>
                             <small class="text-muted"><?php echo BOX_LABEL_PRODUCTS_ID . $pID . (!empty($model) ? ' | ' . BOX_LABEL_PRODUCTS_MODEL . $model : '' ); ?></small>
                         </div>
                         <div class="media-right media-middle text-right">
