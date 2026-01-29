@@ -43,3 +43,7 @@ $target_status_ids = [1, 2];
 ##  License
 Portions Copyright 2003-2026 Zen Cart Development Team.
 Released under the **GNU Public License V2.0**.
+
+## Screenshot
+
+![screenshot](https://github.com/user-attachments/assets/64f0bd7b-925a-4d3a-b28c-04bd16597af1)
