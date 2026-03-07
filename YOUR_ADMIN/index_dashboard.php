@@ -11,7 +11,7 @@ $currencies ??= new currencies();
 
 // make sure Dashboard Layout Config exists
 if(!defined('DASHBOARD_WIDGETS_CONFIG')) {
-    $db->Execute("INSERT INTO configuration (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Dashboard Layout Config', 'DASHBOARD_WIDGETS_CONFIG', '', 'JSON data for dashboard layout', 6, 0, NOW());");
+    $db->Execute("INSERT INTO " . TABLE_CONFIGURATION . " (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added) VALUES ('Dashboard Layout Config', 'DASHBOARD_WIDGETS_CONFIG', '', 'JSON data for dashboard layout', 6, 0, NOW());");
 }
 
 // pre-fetch key metrics for KPI cards
