@@ -61,14 +61,25 @@ function render_zone($zone_name, $widgets_array)
     echo '<ul id="zone-' . $zone_name . '" class="sortable-list list-unstyled row" style="min-height: 200px; padding-bottom: 50px;">';
 
     foreach ($widgets_array as $widget_file) {
-        $path = DIR_WS_MODULES . 'dashboard_widgets/' . $widget_file;
+        $path = '';
+
+        // check if this is an Encapsulated Plugin (absolute path provided)
+        if (file_exists($widget_file)) {
+            $path = $widget_file;
+        }
+        // treat as Core Widget (relative filename provided)
+        else {
+            $path = DIR_WS_MODULES . 'dashboard_widgets/' . $widget_file;
+        }
 
         if (file_exists($path)) {
+
+            $widget_name = basename($path);
 
             $col_class = 'col-md-12';
 
             if ($zone_name == 'bottom') {
-                if ($widget_file == 'TrafficDashboardWidget.php') {
+                if ($widget_name == 'TrafficDashboardWidget.php') {
                     $col_class = 'col-xs-12 col-md-6'; // traffic gets half width
                 } else {
                     $col_class = 'col-xs-12 col-md-3'; // others get quarter width
@@ -76,11 +87,11 @@ function render_zone($zone_name, $widgets_array)
             }
 
             // data-markers for JS
-            $data_attr = 'data-id="' . $widget_file . '"';
+            $data_attr = 'data-id="' . $widget_name . '"';
             $li_class = $col_class . ' widget-li';
 
             // Traffic widget - prevent it moving to sidebar
-            if ($widget_file == 'TrafficDashboardWidget.php') {
+            if ($widget_name == 'TrafficDashboardWidget.php') {
                 $li_class .= ' locked-bottom';
             }
 
@@ -94,6 +105,50 @@ function render_zone($zone_name, $widgets_array)
 
 // Notifier for plugins to inject their own widgets into zones
 $zco_notifier->notify('NOTIFY_ADMIN_DASHBOARD_ZONES', null, $zones);
+
+// legacy widgets support
+$widgets = [];
+
+$zco_notifier->notify('NOTIFY_ADMIN_DASHBOARD_WIDGETS', null, $widgets);
+
+foreach ($widgets as $widget) {
+    if (!isset($widget['path'])) continue;
+
+    $file_path = $widget['path'];
+    $file_name = basename($file_path);
+    $found_in_zones = false;
+
+    // check existing zones to see if this widget is already there
+    foreach ($zones as $z_name => &$z_files) {
+        if (!is_array($z_files)) continue;
+
+        foreach ($z_files as $key => &$z_file) {
+            if (basename($z_file) === $file_name) {
+                $found_in_zones = true;
+
+                // If the DB has just the filename, but the plugin gives us a full path,
+                // update the zone entry to use the full path.
+                if ($z_file !== $file_path) {
+                    $z_file = $file_path;
+                }
+                break 2;
+            }
+        }
+    }
+
+    // if not found in zones, inject it
+    if (!$found_in_zones) {
+        // legacy column 3 -> sidebar zone
+        if (isset($widget['column']) && $widget['column'] == 3) {
+            if (!isset($zones['sidebar'])) $zones['sidebar'] = [];
+            array_unshift($zones['sidebar'], $file_path);
+        } else {
+            // legacy column 1 or 2 -> main zone
+            if (!isset($zones['main'])) $zones['main'] = [];
+            $zones['main'][] = $file_path;
+        }
+    }
+}
 
 ?>
 
