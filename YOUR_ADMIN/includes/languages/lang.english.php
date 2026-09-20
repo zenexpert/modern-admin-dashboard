@@ -487,6 +487,7 @@ $define = [
     'TEXT_CHARGES_WORD' => 'Calculated Charge:',
     'TEXT_CHECK_ALL' => 'Check All',
     'TEXT_CLOSE_WINDOW' => '[ close window ]',
+    'TEXT_CONFIG_SAVED_SUCCESS' => 'Success: %s configuration setting(s) saved successfully',
     'TEXT_CONFIRM_PASSWORD' => 'Confirm Password',
     'TEXT_COPY' => 'Copy',
     'TEXT_COPIED' => 'Copied!',
