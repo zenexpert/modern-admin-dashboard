@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright 2003-2025 Zen Cart Development Team
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * @version Modern Dynamic Dashboard 2026
  * @author ZenExpert - https://zenexpert.com
  */
@@ -41,54 +41,54 @@ if ($result->RecordCount()) {
     $counter = $result->fields['counter'];
     $raw_date = $result->fields['startdate'];
     // format: "Since Jan 2003"
-    $counter_date = date('M Y', mktime(0,0,0, substr($raw_date, 4, 2), 1, substr($raw_date, 0, 4)));
+    $counter_date = $zcDate->output(DATE_FORMAT_SHORT_NO_DAY, mktime(0, 0, 0, (int)substr($raw_date, 4, 2), (int)substr($raw_date, -2), (int)substr($raw_date, 0, 4)));
 }
 ?>
 
 
     <div class="panel widget-wrapper">
         <div class="panel-heading">
-            <i class="fa fa-hdd-o"></i> <?php echo BOX_TITLE_STORE_SNAPSHOT; ?>
+            <i class="fa fa-hdd-o"></i> <?= BOX_TITLE_STORE_SNAPSHOT ?>
         </div>
 
         <ul class="list-group">
 
             <?php if ($show_products) { ?>
                 <li class="list-group-item">
-                    <a class="link-text" href="<?php echo zen_href_link(FILENAME_PRODUCTS_PRICE_MANAGER); ?>"><?php echo BOX_TITLE_PRODUCTS; ?></a>
+                    <a class="link-text" href="<?= zen_href_link(FILENAME_PRODUCTS_PRICE_MANAGER) ?>"><?= BOX_TITLE_PRODUCTS ?></a>
                     <div class="pull-right">
-                        <span class="label label-success" title="<?php echo BOX_LABEL_ACTIVE; ?>" data-toggle="tooltip"><?php echo $products_on; ?></span>
-                        <span class="label label-default" title="<?php echo BOX_LABEL_INACTIVE; ?>" data-toggle="tooltip"><?php echo $products_off; ?></span>
+                        <span class="label label-success" title="<?= BOX_LABEL_ACTIVE ?>" data-toggle="tooltip"><?= $products_on ?></span>
+                        <span class="label label-default" title="<?= BOX_LABEL_INACTIVE ?>" data-toggle="tooltip"><?= $products_off ?></span>
                     </div>
                 </li>
             <?php } ?>
 
             <?php if ($show_customers) { ?>
                 <li class="list-group-item">
-                    <a class="link-text" href="<?php echo zen_href_link(FILENAME_CUSTOMERS); ?>"><?php echo BOX_TITLE_CUSTOMERS; ?></a>
+                    <a class="link-text" href="<?= zen_href_link(FILENAME_CUSTOMERS) ?>"><?= BOX_TITLE_CUSTOMERS ?></a>
                     <div class="pull-right">
-                        <span class="label label-info" title="<?php echo BOX_LABEL_TOTAL_ACCOUNTS; ?>" data-toggle="tooltip"><?php echo $customers; ?></span>
-                        <span class="label label-warning" title="<?php echo BOX_LABEL_NEWSLETTER_SUBSCRIBERS; ?>" data-toggle="tooltip"><i class="fa fa-envelope"></i> <?php echo $newsletters; ?></span>
+                        <span class="label label-info" title="<?= BOX_LABEL_TOTAL_ACCOUNTS ?>" data-toggle="tooltip"><?= $customers ?></span>
+                        <span class="label label-warning" title="<?= BOX_LABEL_NEWSLETTER_SUBSCRIBERS ?>" data-toggle="tooltip"><i class="fa fa-envelope"></i> <?= $newsletters ?></span>
                     </div>
                 </li>
             <?php } ?>
 
             <li class="list-group-item">
-                <a class="link-text" href="<?php echo zen_href_link(FILENAME_REVIEWS); ?>"><?php echo BOX_TITLE_REVIEWS; ?></a>
+                <a class="link-text" href="<?= zen_href_link(FILENAME_REVIEWS) ?>"><?= BOX_TITLE_REVIEWS ?></a>
                 <div class="pull-right">
-                    <span class="label label-primary" title="<?php echo BOX_LABEL_TOTAL_REVIEWS; ?>" data-toggle="tooltip"><?php echo $reviews; ?></span>
+                    <span class="label label-primary" title="<?= BOX_LABEL_TOTAL_REVIEWS ?>" data-toggle="tooltip"><?= $reviews ?></span>
                     <?php if ($reviews_pending > 0) { ?>
-                        <span class="label label-danger" title="<?php echo BOX_LABEL_REVIEWS_PENDING; ?>" data-toggle="tooltip"><?php echo $reviews_pending; ?></span>
+                        <span class="label label-danger" title="<?= BOX_LABEL_REVIEWS_PENDING ?>" data-toggle="tooltip"><?= $reviews_pending ?></span>
                     <?php } ?>
                 </div>
             </li>
 
             <li class="list-group-item">
-                <span class="link-text"><?php echo BOX_TITLE_TOTAL_VISITS; ?></span>
-                <small class="text-muted">Since <?php echo $counter_date; ?></small>
+                <span class="link-text"><?= BOX_TITLE_TOTAL_VISITS ?></span>
+                <small class="text-muted"><?= sprintf(TEXT_SINCE_DATE, $counter_date) ?></small>
                 <div class="pull-right" style="margin-top: -15px;">
                      <span class="badge base-counter-badge">
-                        <?php echo number_format($counter); ?>
+                        <?= number_format($counter) ?>
                      </span>
                 </div>
             </li>
@@ -96,8 +96,8 @@ if ($result->RecordCount()) {
         </ul>
         <div class="panel-footer text-center">
             <small class="text-muted">
-                <span class="text-success">■ <?php echo BOX_LABEL_ACTIVE; ?></span> &nbsp;
-                <span class="label-inactive-text">■ <?php echo BOX_LABEL_INACTIVE; ?></span>
+                <span class="text-success"><i class="fa fa-square"></i> <?= BOX_LABEL_ACTIVE ?></span> &nbsp;
+                <span class="label-inactive-text"><i class="fa fa-square"></i> <?= BOX_LABEL_INACTIVE ?></span>
             </small>
         </div>
     </div>

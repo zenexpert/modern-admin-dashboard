@@ -1,3 +1,8 @@
+/**
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License v2.0
+ * @version $Id: ZenExpert 2026-04-06 Modified in v3.0.0 $
+ */
 $(function () {
     var sortableConfig = {
         handle: ".panel-heading",      // Only drag by the header
@@ -70,22 +75,36 @@ $(function () {
         };
 
         $('#zone-main li').each(function () {
-            layout.main.push($(this).data('id'));
+            var widgetId = $(this).data('id');
+            if (widgetId) layout.main.push(widgetId);
         });
         $('#zone-sidebar li').each(function () {
-            layout.sidebar.push($(this).data('id'));
+            var widgetId = $(this).data('id');
+            if (widgetId) layout.sidebar.push(widgetId);
         });
         $('#zone-bottom li').each(function () {
-            layout.bottom.push($(this).data('id'));
+            var widgetId = $(this).data('id');
+            if (widgetId) layout.bottom.push(widgetId);
         });
 
         // AJAX save
-        $.post('ajax_dashboard.php', {layout: layout}, function (response) {
-            console.log("Layout Saved");
+        zcJS.ajax({
+            url: "ajax.php?act=ajaxAdminDashboardWidgetArrange&method=save",
+            data: {layout: JSON.stringify(layout)}
+        }).done(function(response ) {
+            //console.log(response);
+            if (response.error === true) {
+                if (window.console && typeof(console.log) === 'function') {
+                    console.log(response.message);
+                }
+            }
         });
     }
     $(function () {
         $('[data-toggle="tooltip"]').tooltip();
-        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            sanitize: true
+        });
     })
 });

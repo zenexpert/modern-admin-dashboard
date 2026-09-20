@@ -4,7 +4,7 @@
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version Modern Dynamic Dashboard 2026
- * @author ZenExpert - https://zenexpert.com
+ * @version $Id: ZenExpert 2026-09-20 Modified in v2.2.2 $
 */
 
 $define = [
@@ -43,6 +43,7 @@ $define = [
     'BOX_ORDERS_ACTIONS' => 'Actions',
     'BOX_ORDERS_ORDER' => 'Order #%s Items',
     'BOX_ORDERS_PRINT_INVOICE' => 'Print Invoice',
+    'BOX_ORDERS_VIEW_ORDER' => 'View Order',
     'BOX_ORDERS_PROCESS' => 'Process Order',
     'BOX_ORDER_STATUS_HEADING' => 'Orders by Status',
     'BOX_ORDER_STATUS_MANAGE' => 'Manage Order Statuses',

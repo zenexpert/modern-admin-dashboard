@@ -1,8 +1,8 @@
 <?php
 /**
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License v2.0
  * @version Modern Dynamic Dashboard 2026
- * @author ZenExpert - https://zenexpert.com
  */
 if (!defined('IS_ADMIN_FLAG')) die('Illegal Access');
 
@@ -14,17 +14,17 @@ $adminMenu  = zen_get_admin_menu_for_user();
 
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-adm1-collapse">
-                <span class="sr-only"><?php echo HEADER_TOGGLE_NAVIGATION; ?></span>
-                <i class="fa fa-bars"></i> <?php echo HEADER_TITLE_MENU; ?>
+                <span class="sr-only"><?= HEADER_TOGGLE_NAVIGATION ?></span>
+                <i class="fa fa-bars"></i> <?= HEADER_TITLE_MENU ?>
             </button>
-            <a class="navbar-brand visible-xs" href="#"><?php echo HEADER_TITLE_MENU; ?></a>
+            <a class="navbar-brand visible-xs" href="#"><?= HEADER_TITLE_MENU ?></a>
         </div>
 
         <div class="collapse navbar-collapse navbar-adm1-collapse">
             <ul class="nav navbar-nav">
 
                 <?php
-                // DEBUG: if menu is empty, show a warning
+                // if menu is empty, show a warning
                 if (empty($adminMenu)) {
                     echo '<li><a href="#" style="color:red;">' . HEADER_TITLE_MENU_ERROR . '</a></li>';
                 }
@@ -32,14 +32,14 @@ $adminMenu  = zen_get_admin_menu_for_user();
                 foreach ($adminMenu as $menuKey => $pages) {
                     ?>
                     <li class="dropdown">
-                        <a href="<?php echo zen_href_link(FILENAME_ALT_NAV) ?>" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <?php echo $menuTitles[$menuKey]; ?> <b class="caret"></b>
+                        <a href="<?= zen_href_link(FILENAME_ALT_NAV) ?>" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <?= $menuTitles[$menuKey] ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
                             <?php foreach ($pages as $page) { ?>
                                 <li>
-                                    <a href="<?php echo zen_href_link($page['file'], $page['params']); ?>">
-                                        <?php echo $page['name']; ?>
+                                    <a href="<?= zen_href_link($page['file'], $page['params']) ?>">
+                                        <?= $page['name'] ?>
                                     </a>
                                 </li>
                             <?php } ?>
@@ -47,22 +47,29 @@ $adminMenu  = zen_get_admin_menu_for_user();
                     </li>
                 <?php } ?>
 
-                <li class="dropdown visible-xs">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo HEADER_TITLE_QUICK_ACTIONS; ?> <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="<?php echo zen_href_link(FILENAME_DEFAULT); ?>"><?php echo HEADER_TITLE_TOP; ?></a></li>
-                        <li><a href="<?php echo zen_catalog_href_link(FILENAME_DEFAULT); ?>" target="_blank"><?php echo HEADER_TITLE_ONLINE_CATALOG; ?></a></li>
-                        <li><a href="<?php echo zen_href_link(FILENAME_LOGOFF); ?>"><?php echo HEADER_TITLE_LOGOFF; ?></a></li>
-                    </ul>
-                </li>
+                <?php if (!empty($upperMenuArray)) { ?>
+                    <li class="dropdown visible-xs">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= HEADER_TITLE_QUICK_ACTIONS ?> <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        <?php
+                            foreach ($upperMenuArray as $upperMenu) {
+                                if (!isset($upperMenu['a'])) {
+                                    continue;
+                                }
+                        ?>
+                            <li><a href="<?= $upperMenu['a'] ?>" <?= ($upperMenu['params'] ?? '') ?>><?= $upperMenu['title'] ?? '' ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                <?php } ?>
 
             </ul>
 
             <?php if ($url = page_has_help()) { ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="<?php echo $url; ?>" target="_blank" class="text-info">
-                            <i class="fa fa-question-circle"></i> <?php echo IMAGE_MODULE_HELP; ?>
+                        <a href="<?= $url ?>" rel="noopener" target="_blank" class="text-info" title="<?= IMAGE_MODULE_HELP ?>">
+                            <i class="fa fa-question-circle fa-lg" aria-hidden="true"></i> <span class="hidden-sm"><?= IMAGE_MODULE_HELP ?></span>
                         </a>
                     </li>
                 </ul>
