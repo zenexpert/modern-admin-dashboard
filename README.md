@@ -2,6 +2,8 @@
 
 A comprehensive UI/UX overhaul for the Zen Cart admin panel. This modification introduces a modern 2-tier header, drag-and-drop dashboard widgets, and a global Order Status Color system that adds visual cues (badges/pills) throughout the admin.
 
+> **NOTE:** this branch has been updated for Zen Cart 2.2.x. If you're using an older version of Zen Cart, please switch to zc-210 branch.
+
 ## Key Features
 
 * **Order Status Colors:** Assign Hex colors to statuses directly in `Admin > Localization > Orders Status`.
@@ -36,7 +38,7 @@ $target_status_ids = [1, 2];
 ```
 
 ## Compatibility
-* **Zen Cart Version:** v2.1.0 out of the box (down to 1.5.8 with required manual merge of orders.php and includes/functions/general.php)
+* **Zen Cart Version:** v2.2.x and 2.3.0 out of the box (Please switch to zc-210 branch for Zen Cart versions 2.1.0 down to 1.5.8)
 * **PHP Version:** 7.4 - 8.x
 * **Dependencies:** jQuery UI, chart.js
 
